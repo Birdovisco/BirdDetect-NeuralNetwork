@@ -4,13 +4,11 @@ import shutil
 from pydub import AudioSegment
 
 cur_path = os.path.dirname(__file__)
-audio_path = cur_path + "\\cornel-lab\\recordings\\Simon"
-database_file = cur_path + "\\cornel-lab\\metadata\\polish_audio.csv"
-cleaned_dir = cur_path + "\\cornel-lab-cleaned\\"
+audio_path = os.path.abspath(os.path.join(cur_path, '..', 'data', 'cornel-lab', 'recordings', 'Simon'))
+database_file = os.path.abspath(os.path.join(cur_path, '..', 'data', 'cornel-lab', 'metadata', 'polish_audio.csv'))
+cleaned_dir = os.path.abspath(os.path.join(cur_path, '..', 'data', 'cornel-lab-cleaned'))
 
 # max and min audio duration in milliseconds
-
-
 max_audio_length = 20_000
 min_audio_length = 5_000
 
@@ -44,7 +42,7 @@ for specie in species:
 for filename in os.listdir(audio_path):
     if os.path.isfile(os.path.join(audio_path, filename)):
         recording_id = os.path.splitext(os.path.basename(filename))[0]
-        species_dir = cleaned_dir + data[recording_id]
+        species_dir = os.path.join(cleaned_dir, data[recording_id])
 
         audio = AudioSegment.from_file(os.path.join(audio_path, filename))
         cleaned_audio = audio[audio_deletion_threshold:]
