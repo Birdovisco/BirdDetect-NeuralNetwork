@@ -4,3 +4,4 @@
 *.tar
 *.png
 /cornel-clean/.idea
+.idea
